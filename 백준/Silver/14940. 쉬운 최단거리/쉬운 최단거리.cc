@@ -50,7 +50,7 @@ int main() {
 		y = q.front().y;
 		x = q.front().x;
 		q.pop();
-		check[y][x] = 1;
+		//check[y][x] = 1;
 
 		for (int i = 0; i < 4; ++i)
 		{
