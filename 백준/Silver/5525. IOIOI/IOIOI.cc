@@ -19,13 +19,30 @@ int main()
         f_str.append((i % 2) ? "O" : "I");
     }
 
-    int cnt = 0;
     int index = 0;
-    while ((index = S.find(f_str, index)) != std::string::npos) {
-        cnt ++;
-        index++;
+    int answer = 0;
+    
+    while (index != M)
+    {
+        if (S[index++] == 'I')
+        {
+            int cnt = 0;
+            while (true)
+            {
+                if (S[index] == 'O' && S[index + 1] == 'I')
+                {
+                    cnt++;
+                    index += 2;
+                }
+                else
+                {
+                    break;
+                }
+                if (cnt >= N)
+                    answer++;
+            }
+        }
     }
-
-    cout << cnt;
+    cout << answer;
     return 0;
 }
