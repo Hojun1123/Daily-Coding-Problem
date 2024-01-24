@@ -1,0 +1,46 @@
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <stack>
+#include <queue>
+#include <deque>
+#include <vector>
+#include <map>
+using namespace std;
+int M, N;
+int arr[8];
+int input[10001];
+int check[10001];
+void recursion(int depth, int prev)
+{
+	if (depth == M)
+	{
+		for (int i = 0; i < M; ++i)
+			cout << arr[i] << " ";
+		cout << "\n";
+		return;
+	}
+	for (int i = prev; i <= 10000; ++i)
+	{
+		if (!input[i])
+			continue;
+		check[i] ++;
+		arr[depth] = i;
+		recursion(depth + 1, i);
+		check[i] --;
+	}
+}
+int main()
+{
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+	cout.tie(0);
+	cin >> N >> M;
+	int a;
+	for (int i = 0; i < N; ++i)
+	{
+		cin >> a;
+		input[a] ++;
+	}
+	recursion(0, 0);
+}
