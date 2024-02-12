@@ -17,7 +17,8 @@ struct yx {
 };
 queue<yx> q;
 int populationSum, countryCnt;
-vector<yx> tmp;
+int tmpY[10000];
+int tmpX[10000];
 bool Open()
 {
     bool openFlag = false;
@@ -54,7 +55,9 @@ void bfs()
     {
         yx now = q.front();
         q.pop();
-        tmp.push_back(now);
+        tmpY[countryCnt] = now.y;
+        tmpX[countryCnt] = now.x;
+        countryCnt++;
         populationSum += arr[now.y][now.x];
         for (int k = 0; k < 4; ++k)
         {
@@ -99,17 +102,18 @@ int main()
             {
                 if (check[i][j] == 0)
                 {
-                    tmp = vector<yx>();
+                    
                     q.push({ i, j });
                     check[i][j] = 1;
                     populationSum = 0;
+                    countryCnt = 0;
                     while (!q.empty())
                     {
                         bfs();
                     }
-                    for (yx n : tmp)
+                    for (int k = 0; k < countryCnt; ++k)
                     {
-                        arr[n.y][n.x] = populationSum / tmp.size();
+                        arr[tmpY[k]][tmpX[k]] = populationSum / countryCnt;
                     }
                 }
             }
