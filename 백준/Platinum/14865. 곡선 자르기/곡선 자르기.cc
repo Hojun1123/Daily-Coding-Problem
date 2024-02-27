@@ -16,7 +16,6 @@ struct line {
 };
 int N;
 deque<line> v;
-stack<int> s;
 struct Node {
     int s, e;
     Node(int a, int b)
@@ -41,17 +40,16 @@ struct Node {
     }
 };
 vector<Node> result;
-int answer[100000];
-int check[100000];
+int answer[1111111];
 int main()
 {
     ios::sync_with_stdio(false);
     cout.tie(0);
     cin.tie(0);
     cin >> N;
-    int y, x;
-    int py, px;
-    int sy, sx;
+    long long y, x;
+    long long py, px;
+    long long sy, sx;
     cin >> px >> py;
     sy = py; 
     sx = px;
@@ -72,9 +70,9 @@ int main()
         px = x;
         py = y;
     }
-    if (sx == x)
+    if (px == sx && py * sy <= 0)
     {
-        if (sy < py * y <= 0)
+        if (py < sy)
         {
             v.push_front({ x, 1 });
         }
@@ -103,7 +101,7 @@ int main()
     int out = 0;   //다른 봉우리에 포함되지 않는
     int inside = 0; //다른 봉우리를 포함하지 않는
 
-    int ps = -2000000000, pe = -2000000000;
+    int pe = -2000000000;
     for (int i = 0; i < result.size(); ++i)
     {
         if (pe < result[i].s)
