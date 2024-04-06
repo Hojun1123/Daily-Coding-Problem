@@ -1,15 +1,4 @@
 #include <iostream>
-#include <queue>
-#include <vector>
-#include <cmath>
-#include <algorithm>
-#include <map>
-#include <string>
-#include <unordered_map>
-#include <bitset>
-#include <stack>
-#include <unordered_set>
-#include <cstring>
 using namespace std;
 struct xy {
     int y, x;
