@@ -19,18 +19,34 @@ struct yx {
     int y, x;
 };
 struct Node {
-    //y, x, 최종 방향
     int y, x, d;
     bool operator==(Node o) const {
         return o.y == y && o.x == x && o.d == d;
     }
 };
-//a방향으로 y x 좌표에 접근할때 Node로 이동.
 Node warp[1024][1024][4];
 long long warpCost[1024][1024][4];
 stack<Node> memory;
-void init()
+int main()
 {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    cin >> H >> W;
+    cin >> R >> C >> D;
+    for (int i = 0; i < H; ++i)
+    {
+        string a;
+        cin >> a;
+        for (int j = 0; j < W; ++j) A[i][j] = a[j] - '0';
+    }
+    for (int i = 0; i < H; ++i)
+    {
+        string a;
+        cin >> a;
+        for (int j = 0; j < W; ++j) B[i][j] = a[j] - '0';
+    }
+    //init
     for (int i = 0; i < H; ++i)
     {
         for (int j = 0; j < W; ++j)
@@ -44,51 +60,13 @@ void init()
             }
         }
     }
-}
-int main()
-{
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    cin >> H >> W;
-    cin >> R >> C >> D;
-    for (int i = 0; i < H; ++i)
-    {
-        string a;
-        cin >> a;
-        for (int j = 0; j < W; ++j)
-        {
-            A[i][j] = a[j] - '0';
-        }
-    }
-    for (int i = 0; i < H; ++i)
-    {
-        string a;
-        cin >> a;
-        for (int j = 0; j < W; ++j)
-        {
-            B[i][j] = a[j] - '0';
-        }
-    }
-    init();
-
-    //해당 칸이 아직 청소 X
-    //해당 칸이 청소o, 해당 칸에 들어오는 방향으로 체크
-    //청소하면 1
-    int x, y, prevX, prevY, d, prevD;
-    x = C;
-    y = R;
-    d = D;
+    //simulation
+    int x = C, y = R, d = D;
     long long answer = 0;
     long long cnt = 0;
     long long cleanCnt = 0;
     while (true)
     {
-        prevX = x;
-        prevY = y;
-        prevD = d;
-        //cout <<"\n" << cnt << " : " << y << ", " << x << "\n";
-
         if (arr[y][x])
         {
             //B, warp 수행
@@ -97,7 +75,6 @@ int main()
             {
                 Node w = warp[y][x][d];
                 cnt += warpCost[y][x][d];
-                //cout << "wp : " << y << "," << x << "," << d << " to " << w.y << "," << w.x << "," << w.d << " : " << warpCost[y][x][d] << "\n";
                 y = w.y;
                 x = w.x;
                 d = w.d;
@@ -107,8 +84,8 @@ int main()
             if (visited[y][x][d] == cleanCnt) break;    //반복되었으나 청소한 영역x
             visited[y][x][d] = cleanCnt;    //check업데이트
             d = (B[y][x] + d) % 4;
-            y = dy[d] + y;
-            x = dx[d] + x;
+            y += dy[d];
+            x += dx[d];
             if (x < 0 || y < 0 || x >= W || y >= H) break;  //영역 check
         }
         else
@@ -118,21 +95,17 @@ int main()
             long long wc = warpCost[y][x][d] + 1;
             while (!memory.empty())
             {
-                int yy = memory.top().y;
-                int xx = memory.top().x;
-                int dd = memory.top().d;
-                warp[yy][xx][dd] = warp[y][x][d];
-                warpCost[yy][xx][dd] += wc;
-                wc = warpCost[yy][xx][dd] + 1;
-                //cout << "save : " << yy << " " << xx << " " << dd << " to " << y << " " << x << " " << d << ": " << wc << "\n";
+                Node tmp = memory.top();
                 memory.pop();
+                warp[tmp.y][tmp.x][tmp.d] = warp[y][x][d];  //warp 지점 재설정
+                warpCost[tmp.y][tmp.x][tmp.d] += wc;    //warp 비용 재설정
+                wc = warpCost[tmp.y][tmp.x][tmp.d] + 1; //다음칸에 대해 워프비용 재계산
             }
             d = (A[y][x] + d) % 4;  //방향 갱신하고, yx 계산
-            y = dy[d] + y;
-            x = dx[d] + x;
+            y += dy[d];
+            x += dx[d];
             cleanCnt++;  //청소개수 + 1
-            answer = cnt;   //청소가 이루어졌다면 반영.
-            cnt++;
+            answer = cnt++;   //청소가 이루어졌다면 반영 후 증가
             if (x < 0 || y < 0 || x >= W || y >= H) break;  //영역 check
         }
     }
