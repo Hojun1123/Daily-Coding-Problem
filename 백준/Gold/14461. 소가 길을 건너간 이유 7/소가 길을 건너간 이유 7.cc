@@ -35,6 +35,7 @@ void dijkstra()
     while (!pq.empty()) {
         Node now = pq.top();
         pq.pop();
+        if (now.cost > ans[now.y][now.x][now.level]) continue;
         for (int k = 0; k < 4; ++k) {
             int y = dy[k] + now.y;
             int x = dx[k] + now.x;
