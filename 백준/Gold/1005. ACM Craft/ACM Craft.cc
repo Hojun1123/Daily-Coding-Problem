@@ -63,9 +63,6 @@ void solve()
             }
         }
     }
-    cout << result[W] << "\n";
-    //for (int i = 1; i <= N; ++i) cout << result[i] << " ";
-    //cout << "\n";
 }
 int main()
 {
@@ -73,7 +70,7 @@ int main()
     cin.tie(0);
     cout.tie(0);
     cin >> T;
-    for (int i = 0; i < T; ++i)
+    for (int t = 0; t < T; ++t)
     {
         solve();
     }
