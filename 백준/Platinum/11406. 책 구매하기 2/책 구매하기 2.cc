@@ -60,19 +60,16 @@ int main()
     cin >> N >> M;
     for (int i = 1; i <= N; ++i) {
         capacity[0][i] = 987654321;
-        capacity[i][0] = 987654321;
     }
     int cp;
     for (int i = 1; i <= N; ++i) {
         cin >> cp;
         capacity[i][i + 100] = cp;
-        capacity[i + 100][i] = cp;
     }
     for (int i = 1; i <= M; ++i)
     {
         cin >> cp;
         capacity[i + 200][400] = cp;
-        capacity[400][i + 200] = cp;
     }
     for (int i = 1; i <= M; ++i)
     {
