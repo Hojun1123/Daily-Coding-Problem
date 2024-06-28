@@ -38,6 +38,7 @@ void dijkstra()
     {
         Node now = pq.top();
         pq.pop();
+        if (now.cost > answer[now.n][now.minPrice]) continue;
         for (int i = 0; i < graph[now.n].size(); ++i)
         {
             long long nxtLength = graph[now.n][i].cost;
