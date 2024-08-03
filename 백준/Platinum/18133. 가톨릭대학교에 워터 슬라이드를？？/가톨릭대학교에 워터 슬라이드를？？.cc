@@ -11,8 +11,7 @@ using namespace std;
 int N, M;
 vector<int> graph[100001];
 vector<int> rev[100001];
-bool visited1[100001];
-bool visited2[100001];
+bool visited[100001];
 bool check[100001];
 stack<int> s;
 vector<int> ret[100001];
@@ -22,8 +21,8 @@ void dfs(int curr)
     for (int i = 0; i < graph[curr].size(); ++i)
     {
         int nxt = graph[curr][i];
-        if (visited1[nxt]) continue;
-        visited1[nxt] = true;
+        if (visited[nxt]) continue;
+        visited[nxt] = true;
         dfs(nxt);
     }
     s.push(curr);
@@ -33,8 +32,8 @@ void dfs2(int curr, int cnt)
     for (int i = 0; i < rev[curr].size(); ++i)
     {
         int nxt = rev[curr][i];
-        if (visited2[nxt]) continue;
-        visited2[nxt] = true;
+        if (visited[nxt]) continue;
+        visited[nxt] = true;
         dfs2(nxt, cnt);
     }
     ret[cnt].push_back(curr);
@@ -72,19 +71,19 @@ int main()
 
     for (int i = 1; i <= N; ++i)
     {
-        if (visited1[i])continue;
-        visited1[i] = true;
+        if (visited[i])continue;
+        visited[i] = true;
         dfs(i);
     }
 
     int cnt = 0;
-
+    memset(visited, 0, sizeof(visited));
     while (!s.empty())
     {
         int curr = s.top();
         s.pop();
-        if (visited2[curr]) continue;
-        visited2[curr] = true;
+        if (visited[curr]) continue;
+        visited[curr] = true;
         dfs2(curr, cnt);
         cnt++;
     }
@@ -118,16 +117,16 @@ int main()
     }
 
     int ans = 0;
-    memset(visited1, 0, sizeof(visited1));
+    memset(visited, 0, sizeof(visited));
     for (int i = 1; i <= N; ++i)
     {
         int start = Find(i);
-        if (visited1[start]) continue;
+        if (visited[start]) continue;
         if (check[start]) continue;
         
         queue<int> q;
         q.push(start);
-        visited1[start] = true;
+        visited[start] = true;
         while (!q.empty())
         {
             int now = q.front();
@@ -135,8 +134,8 @@ int main()
             for (int k = 0; k < graph[now].size(); ++k)
             {
                 int nxt = graph[now][k];
-                if (visited1[nxt]) continue;
-                visited1[nxt] = true;
+                if (visited[nxt]) continue;
+                visited[nxt] = true;
                 q.push(nxt);
             }
         }
