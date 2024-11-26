@@ -23,7 +23,7 @@ int main() {
 		}
 	}
 	if (ans == 0) {
-		cout << (1 + N) / 2;
+		cout << N / 2;
 		return 0;
 	}
 	
