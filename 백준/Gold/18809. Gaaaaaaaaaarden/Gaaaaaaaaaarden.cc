@@ -48,10 +48,11 @@ void btg(int index, int cnt, int curr) {
 	btg(index + 1, cnt, curr);
 	btg(index + 1, cnt + 1, curr | (1 << index));
 }
+int visited[50][50];
 void simulation(int rb, int gb) {
 	queue<yx> q1;
 	queue<yx> q2;
-	int visited[50][50]; memset(visited, 0, sizeof(visited));
+	memset(visited, 0, sizeof(visited));
 	for (int i = 1; i <= vec.size(); i++) {
 		if (rb & 1) {
 			q1.push(vec[i - 1]);
