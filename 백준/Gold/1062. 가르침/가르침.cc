@@ -22,8 +22,8 @@ void bt(int index, int curr, int pick) {
 		return;
 	}
 	if (index == 26) return;
-	if (index == 'N' - 'A' || index == 0 || index == 'T' - 'A' ||
-		index == 'C' - 'A' || index == 'I' - 'A') {
+	if (index == 19 || index == 13 || index == 8 ||
+		index == 2 || index == 0) {
 		bt(index + 1, curr, pick);
 	}
 	else {
@@ -50,11 +50,11 @@ int main() {
 	if (K < 5) cout << 0;
 	else {
 		int start = 0;
-		start |= 1 << ('A' - 'A');
-		start |= 1 << ('N' - 'A');
-		start |= 1 << ('T' - 'A');
-		start |= 1 << ('C' - 'A');
-		start |= 1 << ('I' - 'A');
+		start |= 1 << 0;
+		start |= 1 << 13;
+		start |= 1 << 19;
+		start |= 1 << 2;
+		start |= 1 << 8;
 		bt(0, start, 5);
 		cout << ans;
 	}
