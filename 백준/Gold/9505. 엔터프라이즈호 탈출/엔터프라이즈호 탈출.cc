@@ -13,11 +13,10 @@ int T;
 int K, W, H;
 struct Node {
 	int y, x, c;
-	bool operator<(Node o)const {
+	bool operator<(const Node &o) const {
 		return c > o.c;
 	}
 };
-priority_queue<Node> pq;
 int cost[144];
 int answer[1000][1000];
 string arr[1000];
@@ -25,6 +24,7 @@ int dy[4] = { 1, -1, 0, 0 };
 int dx[4] = { 0, 0, 1, -1 };
 void solve() {
 	//전투선의 클래스 개수? , 폭, 높이
+	priority_queue<Node> pq;
 	cin >> K >> W >> H;
 	for (int i = 0; i < K; ++i) {
 		char a;
@@ -51,7 +51,6 @@ void solve() {
 		if (now.c > answer[now.y][now.x]) continue;
 		if (now.y == 0 || now.y == H - 1 || now.x == 0 || now.x == W - 1) {
 			cout << answer[now.y][now.x] << "\n";
-			pq = priority_queue<Node>();
 			return;
 		}
 		for (int i = 0; i < 4; ++i) {
