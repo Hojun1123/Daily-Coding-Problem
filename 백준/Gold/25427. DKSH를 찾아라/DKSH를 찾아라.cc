@@ -19,7 +19,7 @@ int main()
 	int N;
 	string str;
 	cin >> N >> str;
-	int d = 0, k = 0, s = 0, h = 0;
+	long long d = 0, k = 0, s = 0, h = 0;
 	for (int i = 1; i <= N; ++i) {
 		if (str[i - 1] == 'D') {
 			d++;
