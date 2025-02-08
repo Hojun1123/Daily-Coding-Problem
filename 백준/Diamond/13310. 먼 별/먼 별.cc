@@ -34,7 +34,7 @@ int cross2(Dot& a, Dot& b, Dot& c, Dot& d) {
 	if (r > 0) return 1;
 	return 0;
 }
-int getDistance(Dot a)
+long long getDistance(Dot a)
 {
 	//Dot0과의 distance
 	return (input[0].x - a.x) * (input[0].x - a.x) + (input[0].y - a.y) * (input[0].y - a.y);
@@ -92,6 +92,7 @@ long long sim(int day)
 
 	// 캘리퍼스 계산
 	while (!s.empty()) {
+		//cout << s.top().x << ", " << s.top().y << "\n";
 		convexHull.push_back(s.top());
 		s.pop();
 	}
@@ -130,7 +131,6 @@ int main()
 		stars.push_back({ x, y, dx, dy });
 	}
 
-
 	long long shortestDistance = 8000000000000000000;
 	int shortestDay = 0;
 	if (N == 2) {
@@ -140,7 +140,7 @@ int main()
 
 			long long currDis = (star1.x - star2.x) * (star1.x - star2.x)
 				+ (star1.y - star2.y) * (star1.y - star2.y);
-			//cout << currDis << "\n";
+			//cout << currDis << "\n"VVV;
 			if (currDis < shortestDistance) {
 				shortestDistance = currDis;
 				shortestDay = i;
@@ -149,7 +149,7 @@ int main()
 		cout << shortestDay << "\n" << shortestDistance;
 	}
 	else {
-		if (T < 5) {
+		if (T <= 20) {
 			for (int i = 0; i <= T; ++i) {
 				long long ret = sim(i);
 				if (ret < shortestDistance) {
@@ -163,7 +163,7 @@ int main()
 			//삼분
 			int left = 0;
 			int right = T;
-			while (left - right >= 3) {
+			while (right - left >= 3) {
 				int lm = (left * 2 + right) / 3;
 				int rm = (right * 2 + left) / 3;
 				if (sim(lm) < sim(rm)) {
