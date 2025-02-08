@@ -36,7 +36,6 @@ int cross2(Dot& a, Dot& b, Dot& c, Dot& d) {
 }
 long long getDistance(Dot a)
 {
-	//Dot0과의 distance
 	return (input[0].x - a.x) * (input[0].x - a.x) + (input[0].y - a.y) * (input[0].y - a.y);
 }
 bool cmp(Dot& a, Dot& b) {
@@ -140,7 +139,7 @@ int main()
 
 			long long currDis = (star1.x - star2.x) * (star1.x - star2.x)
 				+ (star1.y - star2.y) * (star1.y - star2.y);
-			//cout << currDis << "\n"VVV;
+			//cout << currDis << "\n";
 			if (currDis < shortestDistance) {
 				shortestDistance = currDis;
 				shortestDay = i;
@@ -166,19 +165,20 @@ int main()
 			while (right - left >= 3) {
 				int lm = (left * 2 + right) / 3;
 				int rm = (right * 2 + left) / 3;
-				if (sim(lm) < sim(rm)) {
-					right = rm;
+				if (sim(lm) >  sim(rm)) {
+					left = lm;
 				}
 				else{
-					left = lm;
+					right = rm;
 				}
 			}
 
-			for (int i = 0; i < 3; ++i) {
-				long long ret = sim(left + i);
+			for (int i = left; i <= right; ++i) {
+				long long ret = sim(i);
+				//cout << i << ": " << ret << "\n";
 				if (ret < shortestDistance) {
 					shortestDistance = ret;
-					shortestDay = i + left;
+					shortestDay = i;
 				}
 			}
 			cout << shortestDay << "\n" << shortestDistance;
